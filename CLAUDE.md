@@ -81,6 +81,16 @@ Reusable templates live in `templates/`.
 
 - `templates/session-summary.md` - Session closeout template
 
+## Branding
+
+Brand assets and guidelines live in `branding/`.
+
+- `branding/README.md` - Index of brand assets and links to source files
+- `branding/brand-guidelines.md` - Brand rules summary (colors, typography, tone)
+- `branding/assets/` - Exported logos, icons, and other brand files
+
+When generating client-facing content, proposals, or any external communications, refer to `branding/` for visual and tone consistency.
+
 ## References
 
 Reference material lives in `references/`.
