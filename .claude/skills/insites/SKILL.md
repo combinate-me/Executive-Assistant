@@ -9,6 +9,26 @@ Use this skill for any interaction with the Combinate Intranet built on the Insi
 - "Check the database records for [item]"
 - "What activity has there been on [contact]?"
 - Any request involving the Combinate intranet, client CRM data, or Insites records
+- Finding a client's Google Drive folder or TLA (these are stored in CRM custom fields)
+
+## Client Company Custom Fields
+
+Every company record has a `custom_field` object with two key fields used across all client workflows:
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| `client_tla` | Three-letter abbreviation for the client | `"MIG"`, `"IEC"` |
+| `google_drive_url` | Direct link to the client's Google Drive folder | `"https://drive.google.com/drive/folders/..."` |
+
+**To find a client's Drive folder:**
+1. Look up the company by name (see Operation 3 - search, then filter client-side if needed)
+2. Extract `custom_field.google_drive_url`
+3. Parse the folder ID from the URL (the string after `/folders/`)
+4. Use that ID with Google Drive MCP tools to navigate the folder
+
+**Important:** The Insites search API does not reliably filter by company name - always filter client-side in Python by checking if the search term appears in `company_name`.
+
+If `client_tla` or `google_drive_url` is missing from a company record, flag it to Shane and ask him to update the CRM.
 
 ## Authentication Setup
 

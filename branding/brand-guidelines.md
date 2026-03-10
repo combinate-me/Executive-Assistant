@@ -2,6 +2,8 @@
 
 Extracted from the Corporate Identity Figma file. Source: https://www.figma.com/design/jICPxnBH4MdGE9U6rnnpUW/CMB---Corporate-Identity
 
+Google Doc Template: https://docs.google.com/document/d/12TovrIc6MuTjl0dvRycqR56HWssYISNvdnrI_4CwW8U/edit?tab=t.0
+Template ID: `12TovrIc6MuTjl0dvRycqR56HWssYISNvdnrI_4CwW8U`
 ---
 
 ## Logo
