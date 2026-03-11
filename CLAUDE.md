@@ -44,6 +44,7 @@ Skills are built organically. When you notice a recurring request, suggest turni
 #### Active Skills
 
 - **post-meeting-followup** - Full workflow for creating follow-up docs, spreadsheets, and client emails after client meetings. Skill: `.claude/skills/post-meeting-followup/SKILL.md`
+- **log-email-to-crm** - Log a sent client email as an activity against the company record in Insites CRM. Skill: `.claude/skills/log-email-to-crm/SKILL.md`
 
 ### Skills to Build (Backlog)
 
@@ -121,21 +122,7 @@ All emails drafted for Shane must be:
 
 - **Format:** HTML (`text/html` content type) - never plain text
 - **Styling:** Use bold for emphasis, bullet points for lists, clear paragraph breaks
-- **Signature:** Always include Shane's full email signature at the bottom
-
-Shane's email signature HTML:
-```html
-<br>
-<p style="font-family: Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.6;">
-<strong>Shane McGeorge</strong><br>
-CEO<br>
-Combinate<br>
-P: 1300 247 018<br>
-M: 0411 237 219<br>
-11 Wilson Street, South Yarra VIC 3141<br>
-<a href="https://combinate.me" style="color: #333;">www.combinate.me</a>
-</p>
-```
+- **Signature:** Do NOT include a signature. Gmail automatically applies Shane's default signature.
 
 When creating a draft reply, thread it into the existing email thread where one exists.
 

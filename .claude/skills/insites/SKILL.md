@@ -26,7 +26,7 @@ Every company record has a `custom_field` object with two key fields used across
 3. Parse the folder ID from the URL (the string after `/folders/`)
 4. Use that ID with Google Drive MCP tools to navigate the folder
 
-**Important:** The Insites search API does not reliably filter by company name - always filter client-side in Python by checking if the search term appears in `company_name`.
+**Important:** Use the correct search parameter format: `?search_by=[field]&keyword=[value]`. For example, `?search_by=first_name&keyword=John` or `?search_by=email&keyword=domain.com`. You can also add `sort_by=[field]&sort_order=ASC`. Do NOT use `?search=` or `?name&keyword=` or `?company_name&keyword=` - these do not work correctly.
 
 If `client_tla` or `google_drive_url` is missing from a company record, flag it to Shane and ask him to update the CRM.
 
@@ -109,25 +109,28 @@ print(f\"Notes:     {c.get('notes', '')}\")
 
 ### 3. Search Contacts by Name or Email
 
+Use `?search_by=[field]&keyword=[value]`. Supported fields: `first_name`, `last_name`, `email`. Replace spaces with `+`.
+
 ```bash
 source .env && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
-  "$INSITES_SITE/crm/api/v2/contacts?page=1&size=100&search=SEARCH_TERM" | python3 -c "
+  "$INSITES_SITE/crm/api/v2/contacts?page=1&size=25&search_by=email&keyword=SEARCH+TERM" | python3 -c "
 import sys, json
 data = json.load(sys.stdin)
 results = data.get('results', [])
+print(f\"Total: {data.get('total_entries', '?')}\")
 if not results:
     print('No matches found.')
 for c in results:
     name = c.get('name', '')
     email = c.get('email', '')
     company = (c.get('company') or {}).get('company_name', '')
-    print(f\"[{c['uuid'][:8]}...] {name}  {email}  {company}\")
+    print(f\"[{c['id']}] {name}  {email}  {company}\")
 "
 ```
 
-Note: If `search` parameter is not supported, filter client-side by replacing `&search=SEARCH_TERM` with no parameter and filtering in the Python script.
+**Do NOT use `?search=`, `?name&keyword=`, or `?company_name&keyword=` - these do not filter correctly.**
 
 ---
 
@@ -154,7 +157,9 @@ print(f\"Created: {c.get('name', '')}  UUID: {c.get('uuid', '')}\")
 
 ---
 
-### 5. List Companies
+### 5. List or Search Companies
+
+To list all companies (paginated):
 
 ```bash
 source .env && curl -s \
@@ -168,6 +173,28 @@ for c in data.get('results', []):
     print(f\"[{c['id']}] {c.get('company_name', '')}  {c.get('email_1', '')}  {c.get('website', '')}\")
 "
 ```
+
+To search by company name, use `?search_by=company_name&keyword=SEARCH+TERM`:
+
+```bash
+source .env && curl -s \
+  -H "Authorization: $INSITES_API_KEY" \
+  -H "Accept: application/json" \
+  "$INSITES_SITE/crm/api/v2/companies?page=1&size=25&search_by=company_name&keyword=SEARCH+TERM" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+results = data.get('results', [])
+print(f\"Total: {data.get('total_entries', '?')}\")
+if not results:
+    print('No matches found.')
+for c in results:
+    cf = c.get('custom_field') or {}
+    print(f\"[{c['id']}] {c.get('company_name','')}  {c.get('email_1','')}  {c.get('website','')}\")
+    print(f\"  TLA: {cf.get('client_tla','')}  Drive: {cf.get('google_drive_url','')}\")
+"
+```
+
+**Do NOT use `?search=` or `?company_name&keyword=` - these do not filter correctly.**
 
 ---
 
@@ -292,6 +319,45 @@ for a in data.get('results', []):
     print(f\"[{created}] {desc}  {author}\")
 "
 ```
+
+---
+
+### 12. Create an Email Activity on a Company
+
+Logs an outbound email against a company record. All fields are required.
+
+Shane's Insites admin UUID (do not change): `18319c9b-62df-412b-a464-ce0cf32df7d0`
+
+```bash
+source .env && curl -s -X POST \
+  -H "Authorization: $INSITES_API_KEY" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "email",
+    "subject": "EMAIL SUBJECT",
+    "message": "EMAIL BODY (plain text)",
+    "feature_type": "company",
+    "company_uuid": "COMPANY_UUID",
+    "related_uuid": "COMPANY_UUID",
+    "last_updated_by_administrator_uuid": "18319c9b-62df-412b-a464-ce0cf32df7d0",
+    "start_date_time": "YYYY-MM-DDTHH:MM:SS.000Z"
+  }' \
+  "$INSITES_SITE/crm/api/v2/activities" | python3 -c "
+import sys, json
+a = json.load(sys.stdin)
+if 'errors' in a:
+    print('ERROR:', a['errors'])
+else:
+    print(f\"Activity created: ID {a.get('id')}  UUID: {a.get('uuid')}\")
+    print(f\"Company: {(a.get('company') or {}).get('company_name', '')}\")
+    print(f\"Subject: {a.get('subject', '')}\")
+"
+```
+
+Note: Both `company_uuid` and `related_uuid` must be set to the same company UUID or the API will reject the request.
+
+For the full log-email-to-crm workflow, see `.claude/skills/log-email-to-crm/SKILL.md`.
 
 ---
 
