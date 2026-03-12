@@ -1,3 +1,8 @@
+---
+name: insites
+description: Insites CRM and intranet integration for Combinate. Use this skill for any interaction with the Combinate intranet at intranet.combinate.me - including looking up contacts, companies, tasks, activities, databases, and events. Trigger on any mention of the intranet, Insites, CRM, client lookups, finding a client's Google Drive folder or TLA, checking activity history, logging activities, or adding/updating CRM records.
+---
+
 # Skill: Insites Intranet
 
 Use this skill for any interaction with the Combinate Intranet built on the Insites platform (intranet.combinate.me). This covers CRM contacts, companies, tasks, activities, databases, and events.
@@ -361,7 +366,7 @@ For the full log-email-to-crm workflow, see `.claude/skills/log-email-to-crm/SKI
 
 ---
 
-### 12. List Databases
+### 13. List Databases
 
 Note: Databases use the `/databases/api/v2/` prefix, not `/crm/api/v2/`. Response is wrapped under `items`.
 

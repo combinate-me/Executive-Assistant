@@ -1,3 +1,8 @@
+---
+name: post-meeting-followup
+description: Full post-meeting follow-up workflow for Combinate client meetings. Use this skill whenever Shane has just had a client meeting and needs to follow up - this includes creating a summary document, analysis spreadsheet, and a client-ready email draft. Trigger on phrases like "help me follow up from my [client] meeting", "we just had a call with [client]", "create a follow-up doc", "draft a follow-up email after our meeting", or any post-meeting task where a client email, summary, or action items are needed.
+---
+
 # Skill: Post-Meeting Follow-Up
 
 Use this skill after a client meeting to produce a complete follow-up package: summary document, supporting analysis, and a client-ready email draft.
@@ -79,7 +84,7 @@ Create an HTML email draft in Gmail:
 - Thread it into the existing email conversation where one exists
 - CC Erin Hamley (erin@combinate.me) unless Shane says otherwise
 - Use HTML formatting: bold headings, bullet points, clear structure
-- Include Shane's email signature (see CLAUDE.md > Email Standards)
+- Read `branding/email-signature.html` and append it to the end of the email body
 - Keep tone professional, confident, and direct - no filler phrases
 - Link to any supporting documents created in Step 3
 

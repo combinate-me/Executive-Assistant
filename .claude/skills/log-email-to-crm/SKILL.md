@@ -1,6 +1,11 @@
+---
+name: log-email-to-crm
+description: Log a sent client email as an activity in the Insites CRM against the contact record. Use this skill whenever Shane has sent an email to a client and wants to record it in the CRM. Trigger on phrases like "log that email to Insites", "add that email as a CRM activity", "record the email I just sent to [client]", or any time an outbound client email needs to be tracked in the CRM.
+---
+
 # Skill: Log Email to Insites CRM
 
-Log a copy of an email sent to a client as an activity against their company record in the Insites CRM.
+Log a copy of an email sent to a client as an activity against their **contact** record in the Insites CRM.
 
 ## When to Use
 
@@ -11,7 +16,7 @@ Log a copy of an email sent to a client as an activity against their company rec
 
 ## What It Does
 
-Creates an `email` activity on the client's company record in Insites with:
+Creates an `email` activity on the client's **contact** record in Insites with:
 - The email subject
 - The full email body (plain text version)
 - The date sent
@@ -19,54 +24,37 @@ Creates an `email` activity on the client's company record in Insites with:
 
 ---
 
-## Step 1: Find the Company UUID
+## Step 1: Find the Contact UUID
 
-If you already have the company UUID, skip to Step 2.
-
-Look up the company in the Insites CRM. The search API does not filter reliably - fetch all companies and filter client-side:
+Search for the contact by name or email using the correct search format:
 
 ```bash
-source .env && python3 << EOF
-import subprocess, json, os
-
-api_key = "$INSITES_API_KEY"
-site = "$INSITES_SITE"
-
-all_companies = []
-page = 1
-
-while True:
-    result = subprocess.run(
-        ['curl', '-s',
-         '-H', f'Authorization: {api_key}',
-         '-H', 'Accept: application/json',
-         f'{site}/crm/api/v2/companies?page={page}&size=100'],
-        capture_output=True, text=True
-    )
-    data = json.loads(result.stdout)
-    results = data.get('results', [])
-    all_companies.extend(results)
-    if len(results) < 100:
-        break
-    page += 1
-
-search_term = "CLIENT NAME HERE"
-for c in all_companies:
-    name = c.get('company_name', '')
-    if search_term.lower() in name.lower():
-        print(f"[{c.get('uuid', c.get('id'))}] {name}")
-EOF
+source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+  -H "Authorization: $INSITES_API_KEY" \
+  -H "Accept: application/json" \
+  "$INSITES_SITE/crm/api/v2/contacts?page=1&size=25&search_by=email&keyword=SEARCH+TERM" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+results = data.get('results', [])
+if not results:
+    print('No matches. Try search_by=first_name or search_by=last_name')
+for c in results:
+    company = (c.get('company') or {}).get('company_name', '')
+    print(f\"[{c['uuid']}] {c.get('name','')}  {c.get('email','')}  {company}\")
+"
 ```
 
-Alternatively, Shane can navigate directly to the company in the Insites admin UI and copy the UUID from the URL:
-`https://intranet.combinate.me/admin/insites#/crm/companies/COMPANY_UUID`
+Use `search_by=email` for email searches, `search_by=first_name` or `search_by=last_name` for name searches. Replace spaces with `+`.
+
+Alternatively, Shane can navigate directly to the contact in the Insites admin UI and copy the UUID from the URL:
+`https://intranet.combinate.me/admin/insites#/crm/contacts/CONTACT_UUID`
 
 ---
 
 ## Step 2: Create the Email Activity
 
 Replace placeholders before running:
-- `COMPANY_UUID` - from Step 1
+- `CONTACT_UUID` - from Step 1
 - `EMAIL_SUBJECT` - subject line of the email
 - `EMAIL_BODY` - plain text body of the email
 - `DATE` - date sent in ISO format (e.g. `2026-03-10T00:00:00.000Z`)
@@ -74,7 +62,7 @@ Replace placeholders before running:
 Shane's Insites admin UUID (do not change): `18319c9b-62df-412b-a464-ce0cf32df7d0`
 
 ```bash
-source .env && curl -s -X POST \
+source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -82,9 +70,9 @@ source .env && curl -s -X POST \
     "type": "email",
     "subject": "EMAIL_SUBJECT",
     "message": "EMAIL_BODY",
-    "feature_type": "company",
-    "company_uuid": "COMPANY_UUID",
-    "related_uuid": "COMPANY_UUID",
+    "feature_type": "contact",
+    "contact_uuid": "CONTACT_UUID",
+    "related_uuid": "CONTACT_UUID",
     "last_updated_by_administrator_uuid": "18319c9b-62df-412b-a464-ce0cf32df7d0",
     "start_date_time": "DATE"
   }' \
@@ -95,7 +83,7 @@ if 'errors' in a:
     print('ERROR:', a['errors'])
 else:
     print(f\"Activity created: ID {a.get('id')}  UUID: {a.get('uuid')}\")
-    print(f\"Company: {(a.get('company') or {}).get('company_name', '')}\")
+    print(f\"Contact: {(a.get('contact') or {}).get('name', '')}\")
     print(f\"Subject: {a.get('subject', '')}\")
     print(f\"Date:    {a.get('start_date_time', '')}\")
 "
@@ -110,48 +98,24 @@ else:
 | `type` | `"email"` |
 | `subject` | Email subject line |
 | `message` | Plain text email body |
-| `feature_type` | `"company"` |
-| `company_uuid` | UUID of the client's company in Insites |
-| `related_uuid` | Same as `company_uuid` |
+| `feature_type` | `"contact"` |
+| `contact_uuid` | UUID of the contact in Insites |
+| `related_uuid` | Same as `contact_uuid` |
 | `last_updated_by_administrator_uuid` | Shane's UUID: `18319c9b-62df-412b-a464-ce0cf32df7d0` |
 | `start_date_time` | Date/time sent in ISO 8601 format |
-
----
-
-## Optional: Link to a Contact
-
-If you also want to link the activity to a specific contact (e.g. Olivia Scullard), add `related_contacts` to the payload:
-
-```json
-"related_contacts": [{ "uuid": "CONTACT_UUID" }]
-```
-
-To find a contact UUID:
-```bash
-source .env && curl -s \
-  -H "Authorization: $INSITES_API_KEY" \
-  -H "Accept: application/json" \
-  "$INSITES_SITE/crm/api/v2/contacts?page=1&size=50" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-for c in data.get('results', []):
-    if 'scullard' in c.get('name', '').lower() or 'scullard' in c.get('email', '').lower():
-        print(f\"[{c['uuid']}] {c.get('name','')}  {c.get('email','')}\")
-"
-```
 
 ---
 
 ## Error Handling
 
 - **`last_updated_by_administrator_uuid` invalid** - Check that Shane's UUID is correct: `18319c9b-62df-412b-a464-ce0cf32df7d0`
-- **`related_uuid` invalid** - Must match `company_uuid`
+- **`related_uuid` invalid** - Must match `contact_uuid`
 - **401 Unauthorized** - Check `INSITES_API_KEY` in `.env`
-- **Empty company search results** - The Insites search param doesn't filter; always filter client-side
+- **No search results** - Try a different `search_by` field or search term
 
 ---
 
 ## Verification
 
-After creation, you can verify the activity appears on the company record by visiting:
-`https://intranet.combinate.me/admin/insites#/crm/companies/COMPANY_UUID/activities`
+After creation, verify the activity appears on the contact record:
+`https://intranet.combinate.me/admin/insites#/crm/contacts/CONTACT_UUID/activities`

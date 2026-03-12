@@ -122,7 +122,7 @@ All emails drafted for Shane must be:
 
 - **Format:** HTML (`text/html` content type) - never plain text
 - **Styling:** Use bold for emphasis, bullet points for lists, clear paragraph breaks
-- **Signature:** Do NOT include a signature. Gmail automatically applies Shane's default signature.
+- **Signature:** Always append Shane's HTML signature to every email draft. The signature HTML is stored in `branding/email-signature.html` - read that file and append it to the end of the email body. Gmail does NOT automatically apply signatures to API-created drafts.
 
 When creating a draft reply, thread it into the existing email thread where one exists.
 
