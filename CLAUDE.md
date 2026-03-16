@@ -22,6 +22,7 @@ These files contain the full picture. Read them as needed:
 - **Figma** - Design
 - **Slack** - Team messaging (MCP connected)
 - **Teamwork.com** - Project management (API connected via `.claude/skills/teamwork/SKILL.md`)
+- **Zendesk** - Customer support tickets (API connected via `.claude/skills/zendesk/SKILL.md`)
 - **Bark.com** - Lead generation
 
 Some MCP servers are connected. Check available tools before attempting integrations.
@@ -47,6 +48,8 @@ Skills are built organically. When you notice a recurring request, suggest turni
 
 - **post-meeting-followup** - Full workflow for creating follow-up docs, spreadsheets, and client emails after client meetings. Skill: `.claude/skills/post-meeting-followup/SKILL.md`
 - **combinate** - Combinate-specific client context workflows: Google Drive folder lookup, cross-system context gathering, client TLA and custom CRM fields. Skill: `.claude/skills/combinate/SKILL.md`
+- **zendesk** - Read and reply to support tickets, add internal notes, search and update ticket status. Skill: `.claude/skills/zendesk/SKILL.md`
+- **design-task** - Full design task kickoff and wrap-up workflow: CRM research, Figma direction suggestions, Teamwork comment, Slack update to Lee, status to in-progress, time logging on completion. Skill: `.claude/skills/design-task/SKILL.md`
 
 **Insites module sub-skills** (load the relevant one when working with a specific module):
 
