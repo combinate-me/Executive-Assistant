@@ -8,6 +8,7 @@ Central reference for all brand assets, guidelines, and source files.
 |-------|----------|
 | Corporate Identity (Figma) | https://www.figma.com/design/jICPxnBH4MdGE9U6rnnpUW/CMB---Corporate-Identity |
 | Brand Guidelines (Google Doc) | https://docs.google.com/document/d/102gFjmR9eOxKDNhZvIg0NUA8070LQCNeQI3MrabRfUk/edit |
+| Brand Guidelines PDF (v2.1.1) | https://drive.google.com/file/d/1pGZ38MfGcwztCzJwEIjEHlXXmRmMyYBB/view |
 
 ## What's in This Folder
 

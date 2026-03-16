@@ -1,20 +1,31 @@
 # Combinate Brand Guidelines
 
-Extracted from the Corporate Identity Figma file. Source: https://www.figma.com/design/jICPxnBH4MdGE9U6rnnpUW/CMB---Corporate-Identity
+Source: `branding/CMB-Brand-Guidelines-v2.1.1.pdf`
+Figma: https://www.figma.com/design/jICPxnBH4MdGE9U6rnnpUW/CMB---Corporate-Identity
 
-Google Doc Template: https://docs.google.com/document/d/12TovrIc6MuTjl0dvRycqR56HWssYISNvdnrI_4CwW8U/edit?tab=t.0
-Template ID: `12TovrIc6MuTjl0dvRycqR56HWssYISNvdnrI_4CwW8U`
+---
+
+## Brand Heart
+
+**Purpose:** Empower businesses to radiate excellence in their industries and aid clients in authentically portraying their unique business identity.
+
+**Vision:** A catalyst empowering entrepreneurs and businesses to seamlessly connect with their target customers, fostering meaningful and lasting online relationships.
+
+**Mission:** Deliver top-quality services and leading-edge technology. Push boundaries, set new standards, and consistently provide outstanding solutions that go beyond meeting client needs.
+
+**Values:** Innovation, Excellence, Integrity, Collaboration, Forward-Thinking, Empowerment.
+
+**Brand Voice:** Supportive, empowering, and geared towards fuelling your ambition. Key attributes: Encourage, Empowerment, Support, Customer Centric.
+
 ---
 
 ## Logo
 
-The logo consists of two elements used together:
-- **Symbol:** Icosahedron wireframe mark (represents agile, multi-directional iteration forming a 3D shape)
+The logo consists of two elements:
+- **Symbol:** Icosahedron wireframe mark (represents agile, multi-directional iteration)
 - **Wordmark:** "combinate" in lowercase with a TM mark
 
-**Two layouts:**
-- Stacked (symbol above wordmark)
-- Horizontal (symbol left of wordmark)
+**Two layouts:** Horizontal (symbol left of wordmark) and Stacked (symbol above wordmark)
 
 The logo and logotype must always be used in their entirety, produced exactly as shown, in defined Pantone solid coated or CMYK colours.
 
@@ -22,13 +33,13 @@ Logo files available in `branding/Logo/` in EPS, JPG, PNG, and SVG formats. Use 
 
 ---
 
-## Clear Area
+## Clear Space
 
-The logo must always have minimum clear space separating it from other elements.
+**Horizontal logo** (x = height of the "e" in wordmark):
+- All sides: 1.5x
 
-- Sides: 2x the height of the symbol
-- Between symbol and wordmark: 1.5x
-- Below: 2x
+**Symbol only** (x = symbol height):
+- All sides: 0.5x
 
 This space must be kept free of all type, graphic elements, rules, and detailed illustrations or photography.
 
@@ -36,13 +47,11 @@ This space must be kept free of all type, graphic elements, rules, and detailed 
 
 ## Colourways
 
-Three approved background options:
-
 | Background | Logo Treatment |
 |------------|---------------|
-| Light (white) | Blue logo |
-| Dark (Maastrich Blue) | White logo |
-| Branding Blue (#1E43FF) | White logo |
+| Branding Blue (`#1E43FF`) | White logo |
+| Light / Ghost White | Black monotone logo |
+| Dark / Black | White monotone logo |
 
 The reversed (white) logo can be used over images. The underlying image must be simple and not overly detailed.
 
@@ -57,6 +66,16 @@ The reversed (white) logo can be used over images. The underlying image must be 
 
 ---
 
+## Logo Placement
+
+| Position | Use |
+|----------|-----|
+| Top left | Default — websites, documents, email signatures, business cards |
+| Centre | Email marketing header only |
+| Bottom left | Footer sections (website, stationery) |
+
+---
+
 ## Incorrect Use
 
 - Do not alter the logo in any way
@@ -64,6 +83,7 @@ The reversed (white) logo can be used over images. The underlying image must be 
 - Do not rotate the logo
 - Do not use on any non-approved colour backgrounds
 - Do not stretch the logo
+- Do not separate the symbol and wordmark without cause
 
 ---
 
@@ -73,118 +93,135 @@ The reversed (white) logo can be used over images. The underlying image must be 
 
 | Name | Hex | RGB | CMYK | Pantone |
 |------|-----|-----|------|---------|
-| Blue (Japanese Indigo) | #1E43FF | 30, 57, 255 | 88, 77, 0, 0 | 2728 C |
-| Maastrich Blue | #08083D | 8, 8, 61 | 100, 96, 43, 56 | 5255 C |
-| Queen Blue | #435B8C | 67, 91, 140 | 83, 67, 22, 5 | 653 C |
+| Blue | `#1E43FF` | 30, 57, 255 | 89, 69, 0, 0 | 2728 C |
+| Black | `#181818` | 24, 24, 24 | 0, 0, 0, 91 | Neutral Black C |
 
-### Supporting Colours (For Graphs and Data Visualisation)
+### Secondary Colours (Body text, backgrounds, borders)
 
 | Name | Hex | RGB | CMYK | Pantone |
 |------|-----|-----|------|---------|
-| Baby Blue | #589CFD | 88, 156, 253 | 65, 38, 0, 1 | 2171 C |
-| Emerald Isle | #019753 | 1, 151, 83 | 85, 15, 91, 3 | 7482 C |
-| Berry | #FE275E | 254, 39, 94 | 0, 85, 63, 0 | 1787 C |
-| Shady Purple | #5B5BD7 | 91, 91, 215 | 58, 58, 0, 16 | 2125 C |
-| Peach Butter | #FEAB3E | 254, 171, 62 | 0, 38, 84, 0 | 1365 C |
+| Grey | `#4E4E4E` | 78, 78, 78 | 0, 0, 0, 84 | 425 C |
+| Light Grey | `#D1D1D1` | 209, 209, 209 | 0, 0, 0, 18 | Cool Gray 1 C |
+| Ghost White | `#EFF2F9` | 36, 36, 36 | 0, 0, 0, 93 | 419 C |
+| Smoke White | `#FDFDFD` | 253, 253, 253 | 0, 0, 0, 4 | — |
+| White | `#ffffff` | 255, 255, 255 | 0, 0, 0, 0 | — |
+
+### Colour Proportions (60-30-10 Rule)
+
+| Proportion | Colour |
+|------------|--------|
+| 60% | Primary (Black or White) |
+| 30% | Secondary (White or Black) |
+| 10% | Accent (Blue `#1E43FF`) |
+
+Two contexts:
+- **Document cover / website hero / event banner:** Black-dominant with Blue accent
+- **Document and website inner pages:** Black dominant, White secondary, Blue accent
+
+### Brand Pattern
+
+A primary blue liquid blurred blob shape (`#1E43FF`) on a black background (`#181818`). The blob sits on the right side and covers 30% of the design. A heavy blur effect creates the liquid look. Used on document covers, website hero sections, and event banners.
 
 ---
 
 ## Typography
 
-**Typeface: Rubik**
-Google Fonts: https://fonts.google.com/specimen/Rubik
+**Typeface: Helvetica Neue LT Pro** (licensed)
+
+Combinate holds a limited licence for websites, desktops, electronic documents, banner ads, and emails.
 
 | Weight | Use |
 |--------|-----|
-| Rubik Light | Supporting text |
-| Rubik Regular | Body / Paragraph |
-| Rubik Medium | Headings (H1) |
+| Regular | Body / paragraph text |
+| Italic | Emphasis within body |
+| Medium | Website only |
+| Bold | Headings |
 
-Consistent typography must be used throughout all communications as specified.
+**For Google applications and PandaDoc:** Use **Helvetica Neue** (standard version available in Google Fonts).
 
 ---
 
 ## Services Icons
 
-A custom icon set exists for use across company materials. Three styles:
+Combinate uses **Phosphor Icons** as its open-source icon library.
 
-- Outline only (navy on white)
-- Blue filled circle
-- Dark navy filled circle
-
-Icons represent: Custom software, web/browser, cloud, display/screen, settings, chat, connections, cart, document.
+Three styles: Outline, Solid, Duotone. Available at https://phosphoricons.com
 
 ---
 
 ## Imagery
 
 ### Illustrations
-- Flat vector style
-- Blue/geometric theme aligned to the Combinate identity
-- Used to showcase services that clients can derive
+- Clean, flat vector style in blue hue
+- Used to showcase services Combinate can deliver
 
-### Portrait Photos
-- Candid, relaxed style
-- Plain, non-distracting backgrounds
-- Consistent focus and framing
-- Used on the website for team/about sections
+### Photography
+- Authentic, human-centric, real-world contexts
+- High quality, well-lit, candid
 
-### Project Showcase
-- Display completed project deliverables in a flat lay or mockup format
-- Simple, clean, single-colour or white background with objects/devices
+### Showcase / Mockups
+- Real device mockups (not generic placeholders)
+- Clean, simple backgrounds
 
-### Corporate Photography
-- Two contrasting abstract images at each end of the page
-- Concrete, relatable photos in the middle
+### Event Banners
+- Black backdrop with blue blob pattern (30%)
+- 20% text maximum
+- Blue effect can be positioned top right or bottom right
 
 ---
 
 ## Documentation Templates
 
-All company documents and presentations should use the created templates.
-
-| Format | Location |
+| Format | Template |
 |--------|----------|
-| Presentations (16:9) | Google Drive (linked from Figma) |
-| Google Docs | Google Docs template gallery |
-| Pandadoc (proposals, SOWs) | Pandadoc template library |
-| Google Sheets | Google Sheets template gallery |
+| Google Docs (external) | Black cover template — ID: `12TovrIc6MuTjl0dvRycqR56HWssYISNvdnrI_4CwW8U` |
+| Google Docs (internal) | White cover — available in Google Docs template gallery |
+| Google Sheets | Available in Google Sheets template gallery |
+| Presentations (16:9) | Internal and external templates in Google Slides gallery |
+| Proposals / SOWs | PandaDoc template library |
+
+**Document cover rules:**
+- White cover = internal documents (employment agreements, etc.)
+- Black cover = external documents (proposals, user manuals, etc.)
 
 ---
 
 ## Email Signature
 
-Standard format must be installed in the signature line of every Combinate employee's email.
+Standard format must be installed in every Combinate employee's email signature. The email signature should be properly installed in the signature line.
 
-Format:
-- Logo mark (left-aligned)
-- Full name (bold)
-- Title (blue)
-- P: [phone] | M: [mobile]
-- Address
-- www.combinate.me
+Email signature code is available — see `branding/email-signature.html` for Shane's version.
 
-Email signature code available (linked from the Figma Corporate Identity file).
+Format: Logo mark (left-aligned) | Bold name | Title in blue | Phone | Address | Website
 
-**Shane McGeorge example:**
-- P: 1300 660 285 | M: 0411 237 219
-- Address: 11 Wilson Street, South Yarra VIC 3141 Australia
+---
+
+## EDM Templates
+
+Combinate email templates are created in **Ortto**. Templates are saved in the **My Saved Templates** folder. Dark mode styling applies automatically based on the recipient's display settings.
+
+---
+
+## Google Meet Backgrounds
+
+Four standard backgrounds for team use during internal and external calls:
+1. Dark Theme
+2. Primary Blue Solid
+3. Light Theme
+4. Primary Blue Pattern
+
+All include the Combinate logo and website URL.
 
 ---
 
 ## Business Card
 
 - Logo and logotype must be used in entirety in defined Pantone or CMYK colours
-- Front: Logo mark, name, title, phone, address
-- Back: 5 design variants available (blue solid, blue with icosahedron pattern, blue with dot pattern, dark navy with services listed, dark navy solid)
+- Front: Logo mark, name, title, phone, address, email
+- Back: Blue solid with white logo
 
 ---
 
-## EDM Templates
+## Sales Materials
 
-Three standard templates:
-1. Public Holiday Template
-2. Latest Updates & Features Template
-3. Newsletter Template
-
-Templates available in the linked template libraries (see Documentation section).
+Documents, presentations, and assets used to communicate Combinate's value proposition to potential and existing customers. Available for download via the Corporate Identity Figma file.

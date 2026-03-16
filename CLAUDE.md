@@ -31,7 +31,9 @@ Some MCP servers are connected. Check available tools before attempting integrat
 These integrations are used every day and should be loaded proactively when relevant:
 
 - **Teamwork** - Read tasks, read comments, create tasks. Skill: `.claude/skills/teamwork/SKILL.md`. Trigger on any mention of tasks, projects, deadlines, assignments, or Teamwork. API key in `.env`.
-- **Insites Intranet** - CRM contacts, companies, tasks, databases, activities. Skill: `.claude/skills/insites/SKILL.md`. Trigger on any mention of the intranet, Insites, client CRM records, or contact/company lookups. API key in `.env`.
+- **Insites** - Platform entry point. Skill: `.claude/skills/insites/SKILL.md`. Routes to module sub-skills. API key in `.env`.
+- **CRM** - Contacts, companies, log email activities. Skill: `.claude/skills/insites/crm/SKILL.md`. Trigger on any CRM lookup, contact search, or email logging.
+- **Combinate** - Client context, Google Drive folders, cross-system lookups. Skill: `.claude/skills/combinate/SKILL.md`. Trigger when a client or project is mentioned and context needs to be gathered.
 
 ## Skills
 
@@ -44,7 +46,17 @@ Skills are built organically. When you notice a recurring request, suggest turni
 #### Active Skills
 
 - **post-meeting-followup** - Full workflow for creating follow-up docs, spreadsheets, and client emails after client meetings. Skill: `.claude/skills/post-meeting-followup/SKILL.md`
-- **log-email-to-crm** - Log a sent client email as an activity against the company record in Insites CRM. Skill: `.claude/skills/log-email-to-crm/SKILL.md`
+- **combinate** - Combinate-specific client context workflows: Google Drive folder lookup, cross-system context gathering, client TLA and custom CRM fields. Skill: `.claude/skills/combinate/SKILL.md`
+
+**Insites module sub-skills** (load the relevant one when working with a specific module):
+
+- **insites** - Main entry point, shared auth, module routing. Skill: `.claude/skills/insites/SKILL.md`
+- **insites-globals** - Tasks, task comments, activities, attachments (cross-module). Skill: `.claude/skills/insites/globals/SKILL.md`
+- **insites-crm** - Contacts, companies, log email as activity. Skill: `.claude/skills/insites/crm/SKILL.md`
+- **insites-pipelines** - Sales pipelines, stages, opportunities. Skill: `.claude/skills/insites/pipelines/SKILL.md`
+- **insites-data** - Databases and database items. Skill: `.claude/skills/insites/data/SKILL.md`
+- **insites-events** - Events and sub-resources. Skill: `.claude/skills/insites/events/SKILL.md`
+- **insites-cms** - CMS developer skill: pages, partials, layouts, GraphQL, Liquid, assets, background jobs. Skill: `.claude/skills/insites/cms/SKILL.md`
 
 ### Skills to Build (Backlog)
 
@@ -59,22 +71,24 @@ These workflows came up during onboarding as candidates for future skills:
 
 ## Client Context
 
-When a client or project is mentioned, proactively gather full context before responding. The common link across all sources is the **company name and TLA** (three-letter abbreviation, e.g., IEC for International Eucharistic Congress).
+When a client or project is mentioned, proactively gather full context before responding. Use the **combinate** skill (`.claude/skills/combinate/SKILL.md`) which covers the full workflow for multi-source context gathering.
+
+The common identifier across all sources is the **company name and TLA** (three-letter abbreviation, e.g., IEC for International Eucharistic Congress).
 
 Pull context from these sources in parallel:
 
 1. **Google Calendar** - Search for meetings with the client name. Check for recent meeting recordings and notes.
-2. **Google Drive** - Look up the client's folder via Insites CRM (`google_drive_url` custom field). Do not ask Shane for the link unless it's missing from the CRM.
-3. **Insites CRM** - Look up the company record for contacts, notes, and activity history. Skill: `.claude/skills/insites/SKILL.md`.
+2. **Google Drive** - Look up the client's folder via the `google_drive_url` custom field in the Insites CRM.
+3. **Insites CRM** - Look up the company record for contacts, notes, and activity history. Skill: `.claude/skills/insites/crm/SKILL.md`.
 4. **Slack** - Search for the client name or TLA across channels for internal conversations.
 5. **Teamwork** - Find the relevant project and open tasks. Skill: `.claude/skills/teamwork/SKILL.md`.
 6. **Gmail** - Search for emails to/from the client domain or by company name.
 
-**Finding a client's Drive folder:** Look up the company in Insites CRM. The `custom_field` object on every company record contains:
+**Finding a client's Drive folder:** Combinate company records have two custom fields:
 - `client_tla` - the three-letter abbreviation (e.g. "MIG", "IEC")
 - `google_drive_url` - direct link to the client's Google Drive folder
 
-Extract the folder ID from the URL and use it to navigate Drive. If either field is missing, flag it to Shane and ask him to update the CRM record.
+See `.claude/skills/combinate/SKILL.md` for the full lookup workflow. If either field is missing, flag it to Shane.
 
 Do not ask Shane to provide context that can be gathered from these sources directly. Pull first, ask only if something is genuinely missing or ambiguous.
 
