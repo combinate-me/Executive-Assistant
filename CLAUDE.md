@@ -49,6 +49,7 @@ Skills are built organically. When you notice a recurring request, suggest turni
 - **post-meeting-followup** - Full workflow for creating follow-up docs, spreadsheets, and client emails after client meetings. Skill: `.claude/skills/combinate/post-meeting-followup/SKILL.md`
 - **combinate** - Combinate-specific client context workflows: Google Drive folder lookup, cross-system context gathering, client TLA and custom CRM fields. Skill: `.claude/skills/combinate/SKILL.md`
 - **zendesk** - Read and reply to support tickets, add internal notes, search and update ticket status. Skill: `.claude/skills/combinate/zendesk/SKILL.md`
+- **create-user-guide** - Creates or extends client-facing User Guide Google Docs for delivered projects. Gathers context from Teamwork custom item (PCD, GitHub, Figma, Lucidchart, Slack channel, master project sheet), Insites instance, Gmail, and more. Logs time on the Teamwork task on completion. Skill: `.claude/skills/combinate/create-user-guide/SKILL.md`
 
 **Insites module sub-skills** (load the relevant one when working with a specific module):
 
@@ -66,10 +67,9 @@ These workflows came up during onboarding as candidates for future skills:
 
 1. **Proposal writing** - Templated proposal generation for new leads
 2. **Monthly management reports** - Generate recurring management/performance reports
-3. **Client user manuals** - Generate user documentation from a project's codebase
-4. **Six-monthly client check-ins** - Templated outreach for relationship maintenance
-5. **Prospect follow-up sequences** - Drafting and tracking follow-up communications with leads
-6. **AI adoption tracking** - Frameworks for measuring and reporting on team AI tool usage and output
+3. **Six-monthly client check-ins** - Templated outreach for relationship maintenance
+4. **Prospect follow-up sequences** - Drafting and tracking follow-up communications with leads
+5. **AI adoption tracking** - Frameworks for measuring and reporting on team AI tool usage and output
 
 ## Client Context
 
