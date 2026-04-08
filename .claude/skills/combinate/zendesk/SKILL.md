@@ -31,7 +31,7 @@ All Zendesk API calls use HTTP Basic Auth where the username is `{email}/token` 
 The authenticated user email for Combinate is `jennifer@combinate.me` (the account the API token is tied to).
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   -H "Content-Type: application/json" \
   "$ZENDESK_URL/api/v2/[endpoint]"
@@ -46,7 +46,7 @@ source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
 Returns the most recent tickets across all statuses. Useful for a quick overview.
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   "$ZENDESK_URL/api/v2/tickets.json?sort_by=created_at&sort_order=desc&per_page=25" | python3 -c "
 import sys, json
@@ -61,7 +61,7 @@ for t in data.get('tickets', []):
 ### 2. List Open Tickets
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   "$ZENDESK_URL/api/v2/tickets.json?status=open&per_page=50" | python3 -c "
 import sys, json
@@ -80,7 +80,7 @@ for t in tickets:
 Replace `TICKET_ID` with the actual ticket ID.
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   "$ZENDESK_URL/api/v2/tickets/TICKET_ID.json" | python3 -c "
 import sys, json
@@ -106,7 +106,7 @@ print(t.get('description', '(none)'))
 Returns the full conversation thread including public replies and internal notes.
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   "$ZENDESK_URL/api/v2/tickets/TICKET_ID/comments.json" | python3 -c "
 import sys, json
@@ -132,7 +132,7 @@ This posts a public reply visible to the customer. Review the content carefully 
 Replace `TICKET_ID` and the reply body as needed.
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -X PUT \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PUT \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -153,7 +153,7 @@ source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -X PUT \
 Internal notes are only visible to your team, not the customer.
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -X PUT \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PUT \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -174,7 +174,7 @@ source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -X PUT \
 Valid statuses: `new`, `open`, `pending`, `hold`, `solved`, `closed`
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -X PUT \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PUT \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -192,7 +192,7 @@ source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -X PUT \
 Search by keyword, requester email, subject, or status. Uses Zendesk Search API.
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s -G \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -G \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   --data-urlencode "query=SEARCH_TERM type:ticket" \
   "$ZENDESK_URL/api/v2/search.json" | python3 -c "
@@ -218,7 +218,7 @@ for t in results:
 Replace `USER_ID` with the requester_id from a ticket.
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "jennifer@combinate.me/token:$ZENDESK_API_KEY" \
   "$ZENDESK_URL/api/v2/users/USER_ID.json" | python3 -c "
 import sys, json

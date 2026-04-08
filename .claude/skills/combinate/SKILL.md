@@ -47,7 +47,7 @@ Every Teamwork project that has Insites work has a "Claude" custom item (labelSi
 **Step 1 — Get the custom item ID for the project:**
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "https://pm.cbo.me/projects/api/v3/projects/PROJECT_ID/customitems.json" | python3 -c "
 import sys, json
@@ -61,7 +61,7 @@ for item in data.get('customItems', []):
 **Step 2 — Read all records:**
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "https://pm.cbo.me/projects/api/v3/customitems/ITEM_ID/records.json" | python3 -c "
 import sys, json
@@ -97,7 +97,7 @@ ENV values: `PRD` (production), `STG` (staging), `UAT` (UAT), `DEV` (development
 Example: `COMBINATE_KEY_BCC_WEB_STG`
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env"
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true
 # Then use: INSITES_INSTANCE_URL=<url from record> INSITES_API_KEY=<value of key above>
 ```
 
