@@ -1,5 +1,6 @@
 ---
 name: insites-cms
+model: claude-sonnet-4-6
 description: Insites CMS developer skill. Use when building or modifying pages, partials, layouts, or templates in an Insites application. Covers architecture, file structure, GraphQL data access, Liquid templating, assets, partials, layouts, and background jobs. Trigger on any development task involving Insites pages, templates, queries, or application code.
 ---
 

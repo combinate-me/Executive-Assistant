@@ -1,5 +1,6 @@
 ---
 name: developer-update
+model: claude-haiku-4-5-20251001
 description: Generate a Developer Update (Midday or EOD report) for a developer at Combinate. Use this skill whenever someone asks for a "developer update", "midday update", "EOD update", "dev update", or wants to generate their daily report from Teamwork tasks and time logs. Pulls today's time logs, groups tickets by client, and outputs a pre-filled HTML template ready to post to Teamwork or Slack. The developer fills in the status manually (wip, done, for qa, to do).
 ---
 

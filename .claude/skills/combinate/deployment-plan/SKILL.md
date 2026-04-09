@@ -1,5 +1,6 @@
 ---
 name: deployment-plan
+model: claude-haiku-4-5-20251001
 description: Generate a deployment plan for a Teamwork task. Use this skill whenever someone says "deployment plan", "post deploy comment", "deploy to production", "log the deployment", or asks to comment a deployment checklist on a Teamwork task. Asks for Teamwork task ID, working branch, repo, and current tag. Auto-generates a PR from working branch to staging, fetches the rollback tag, then posts the deployment plan comment.
 ---
 

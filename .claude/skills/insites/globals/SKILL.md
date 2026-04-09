@@ -1,5 +1,6 @@
 ---
 name: insites-globals
+model: claude-haiku-4-5-20251001
 description: Insites Globals covers tasks, task comments, activities, and attachments - cross-module features that can be linked to records in any Insites module (CRM contacts/companies, pipeline opportunities, events, etc.). Read this skill when working with tasks, activities, or attachments in Insites.
 ---
 

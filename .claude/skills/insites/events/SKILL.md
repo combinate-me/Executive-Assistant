@@ -1,5 +1,6 @@
 ---
 name: insites-events
+model: claude-haiku-4-5-20251001
 description: Insites Events module. Use for managing events, including creating and updating events, managing speakers, sponsors, FAQs, expenses, and discounts. Trigger on any mention of events in Insites.
 ---
 

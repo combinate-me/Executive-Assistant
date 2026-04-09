@@ -1,5 +1,6 @@
 ---
 name: generate-documentation
+model: claude-sonnet-4-6
 description: Generate a Google Doc from a project's COMPONENTS.md (or any markdown documentation file). Copies a specified Google Doc template, populates it with content from the markdown file (headings, paragraphs, code blocks, tables), and returns the new doc link. Use when asked to "generate documentation", "create a doc from the components", "make a component doc", or "generate a Google Doc from this project". Requires gws CLI to be authenticated.
 ---
 

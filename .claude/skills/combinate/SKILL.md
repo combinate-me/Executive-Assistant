@@ -1,5 +1,6 @@
 ---
 name: combinate
+model: claude-sonnet-4-6
 description: Combinate-specific workflows layered on top of Insites. Use this skill for any client lookup, Google Drive navigation, or cross-system context gathering specific to Combinate's setup. Covers Combinate's custom CRM fields (client TLA, Google Drive URL), finding a client's Drive folder, and pulling context from multiple sources (Insites CRM, Teamwork, Slack, Google Calendar, Google Drive) before responding about a client or project. Trigger whenever a specific client or project is mentioned and context needs to be gathered.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: teamwork
+model: claude-haiku-4-5-20251001
 description: Teamwork.com integration for Combinate's project management. Use this skill for any interaction with Teamwork - reading tasks, checking project status, viewing comments, creating tasks, and finding who is assigned to what. Trigger on any mention of tasks, deadlines, assignments, project updates, Teamwork, or questions like "what's open on X project", "what is [person] working on", "create a task for X", "what are the comments on task Y", or "what's the status of [project]". This is a daily-use skill.
 ---
 
@@ -264,6 +265,14 @@ UAT: https://bcc-uat2.staging.oregon.platform-os.com/
 ENV values: `PRD`, `STG`, `UAT`, `DEV`
 
 See `.claude/skills/combinate/SKILL.md` for the full client instance resolution workflow.
+
+---
+
+## Logging Emails as Comments
+
+When adding an email to a Teamwork task as a comment, always post the **exact verbatim content** of the email — never a summary. Include a header showing the date, recipient, and subject, then the full email body. The task comment is part of the audit trail and must accurately reflect what was communicated.
+
+Use HTML format with a date/recipient header, then `<hr>` followed by the full email body. Use a Python heredoc rather than curl `-d` for multi-line HTML to avoid shell escaping issues.
 
 ---
 
