@@ -1,6 +1,6 @@
 ---
 name: push-to-repo
-description: Push current work to the GitHub repository and create a pull request for review. Creates a branch (feature/name/skillname), commits all staged changes, pushes to origin, opens a PR to master, and notifies Jim Antonio in Slack. Trigger when the user says "push this to the repository", "push to repo", "create a PR", "submit this for review", "push my changes", or "create a pull request".
+description: Push current work to the GitHub repository and create a pull request for review. Creates a branch (feature/name/skillname), commits all staged changes, pushes to origin, opens a PR to master, and notifies the #executive-assistant Slack channel. Trigger when the user says "push this to the repository", "push to repo", "create a PR", "submit this for review", "push my changes", or "create a pull request".
 ---
 
 # Skill: Push to Repository
@@ -21,7 +21,39 @@ Jim's Slack user ID: `UE0U3PBGT`
 
 ---
 
-## Step 1 — Ask for the user's name
+## Step 1 — Check and configure .env
+
+Check if a `.env` file exists in the working directory:
+
+```bash
+test -f "d:/CMB Repositories/Executive-Assistant/.env" && echo "exists" || echo "missing"
+```
+
+If it does not exist, create it from `.env.example`:
+
+```bash
+cp "d:/CMB Repositories/Executive-Assistant/.env.example" "d:/CMB Repositories/Executive-Assistant/.env"
+```
+
+Then check if `GITHUB_TOKEN` is already set:
+
+```bash
+cd "d:/CMB Repositories/Executive-Assistant" && source .env && echo "${GITHUB_TOKEN:+set}"
+```
+
+If it is not set, ask the user: **"Please provide your GitHub personal access token. You can create one at github.com/settings/tokens — select Tokens (classic), tick the `repo` scope, and paste it here."**
+
+Once received, write it into `.env`:
+
+```bash
+cd "d:/CMB Repositories/Executive-Assistant" && \
+  sed -i "s|^GITHUB_TOKEN=.*|GITHUB_TOKEN=TOKEN_VALUE|" .env || \
+  echo "GITHUB_TOKEN=TOKEN_VALUE" >> .env
+```
+
+---
+
+## Step 2 — Ask for the user's name
 
 Ask: **"What is your name?"**
 
@@ -30,7 +62,7 @@ Example: `"Jim Antonio"` → `jim-antonio`
 
 ---
 
-## Step 2 — Detect the skill name
+## Step 3 — Detect the skill name
 
 Check what has changed in the working directory:
 
@@ -50,7 +82,7 @@ Example: `feature/jim-antonio/push-to-repo`
 
 ---
 
-## Step 3 — Create the branch and commit
+## Step 4 — Create the branch and commit
 
 ```bash
 cd "d:/CMB Repositories/Executive-Assistant" && \
@@ -63,7 +95,7 @@ If there is nothing to commit, tell the user: "There are no changes to commit. M
 
 ---
 
-## Step 4 — Push the branch
+## Step 5 — Push the branch
 
 ```bash
 cd "d:/CMB Repositories/Executive-Assistant" && source .env && \
@@ -72,7 +104,7 @@ cd "d:/CMB Repositories/Executive-Assistant" && source .env && \
 
 ---
 
-## Step 5 — Create the pull request via GitHub API
+## Step 6 — Create the pull request via GitHub API
 
 ```bash
 source .env && curl -s -X POST \
@@ -99,23 +131,23 @@ Save the PR URL from the response — you'll need it for the Slack message.
 
 ---
 
-## Step 6 — Notify Jim in Slack
+## Step 7 — Notify #executive-assistant in Slack
 
-Send a DM to Jim (`UE0U3PBGT`):
+Post a notification to the `#executive-assistant` channel (`C0ARB20T3DM`):
 
 ```bash
 source .env && curl -s -X POST \
   -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
   -H "Content-Type: application/json" \
   -d "{
-    \"channel\": \"UE0U3PBGT\",
-    \"text\": \"*New skill submitted for review*\n\n*Skill:* \`SKILLNAME\`\n*Submitted by:* NAME\n*Branch:* \`BRANCH_NAME\`\n*PR:* PR_URL\"
+    \"channel\": \"C0ARB20T3DM\",
+    \"text\": \"<@UE0U3PBGT> *New pull request submitted for review*\n\n*Skill:* \`SKILLNAME\`\n*Submitted by:* NAME\n*Branch:* \`BRANCH_NAME\`\n*PR:* PR_URL\"
   }" \
   "https://slack.com/api/chat.postMessage" | python -c "
 import sys, json
 data = json.load(sys.stdin)
 if data.get('ok'):
-    print('Jim notified on Slack.')
+    print('Notification sent to #executive-assistant.')
 else:
     print('Slack error:', data.get('error'))
 "
@@ -123,7 +155,7 @@ else:
 
 ---
 
-## Step 7 — Confirm to the user
+## Step 8 — Confirm to the user
 
 Respond with:
 
@@ -131,7 +163,7 @@ Respond with:
 >
 > - Branch: `BRANCH_NAME`
 > - Pull request: PR_URL
-> - Jim has been notified on Slack.
+> - Notification posted to #executive-assistant with @jim tagged.
 
 ---
 

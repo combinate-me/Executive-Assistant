@@ -35,6 +35,10 @@
     {
       "name": "zendesk",
       "path": "./skills/zendesk"
+    },
+    {
+      "name": "push-to-repo",
+      "path": "./skills/push-to-repo"
     }
   ]
 }
