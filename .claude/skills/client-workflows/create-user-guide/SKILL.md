@@ -1,8 +1,7 @@
 ---
 name: create-user-guide
-description: Creates or extends a client-facing User Guide Google Doc for a delivered or in-progress project. Use this skill whenever the user asks to write a user guide, client guide, or end-user documentation for a project. Trigger on phrases like "create a user guide for [client]", "write a user guide for [project]", "build the user documentation for [client]", "extend the user guide", "update the user guide", "add a section to the user guide", or any request to document how end users operate a delivered system or application. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-sonnet-4-6
+description: Creates or extends a client-facing User Guide Google Doc for a delivered or in-progress project. Use this skill whenever the user asks to write a user guide, client guide, or end-user documentation for a project. Trigger on phrases like "create a user guide for [client]", "write a user guide for [project]", "build the user documentation for [client]", "extend the user guide", "update the user guide", "add a section to the user guide", or any request to document how end users operate a delivered system or application.
 ---
 
 # Skill: Create User Guide
@@ -10,9 +9,9 @@ metadata:
 Produces a structured User Guide Google Doc for a client project. Works conversationally: asks one question at a time, auto-resolves as much as possible from the Teamwork custom item, then synthesises an outline for the user to confirm before writing.
 
 **Cross-references:**
-- Client context and Google Drive lookup: `.claude/skills/client-workflows/combinate/SKILL.md`
-- Teamwork task management: `.claude/skills/integrations/teamwork/SKILL.md`
-- Google Doc creation workflow: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/client-workflows/post-meeting-followup/SKILL.md`
+- Client context and Google Drive lookup: `.claude/skills/combinate/SKILL.md`
+- Teamwork task management: `.claude/skills/combinate/teamwork/SKILL.md`
+- Google Doc creation workflow: `.claude/skills/combinate/post-meeting-followup/SKILL.md`
 - CRM lookups: `.claude/skills/insites/crm/SKILL.md`
 
 ---

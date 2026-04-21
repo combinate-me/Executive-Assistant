@@ -1,22 +1,12 @@
 ---
 name: insites-events
-description: Insites Events module. Use for managing events, including creating and updating events, managing speakers, sponsors, FAQs, expenses, and discounts. Trigger on any mention of events in Insites. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-haiku-4-5-20251001
+description: Insites Events module. Use for managing events, including creating and updating events, managing speakers, sponsors, FAQs, expenses, and discounts. Trigger on any mention of events in Insites.
 ---
 
 # Insites: Events Module
 
-## Overview
-
 The Events module manages events and their associated content including speakers, sponsors, FAQs, expenses, and discounts.
-
-## When to Use
-
-- Creating, updating, or deleting events in Insites
-- Managing event speakers, sponsors, or FAQs
-- Any mention of events or event-related records in an Insites instance
-- Looking up event details, dates, or status for a client project
 
 **Requires:** `INSITES_INSTANCE_URL` and `INSITES_API_KEY`. Use the combinate skill to resolve these for Combinate projects.
 
@@ -31,7 +21,7 @@ The Events module manages events and their associated content including speakers
 ### List Events
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/events/api/v2/events?page=1&size=25" | python3 -c "
@@ -46,7 +36,7 @@ for e in data.get('results', []):
 ### Get a Single Event
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/events/api/v2/events/EVENT_UUID"
@@ -55,7 +45,7 @@ source .env && curl -s \
 ### Create an Event
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -80,7 +70,7 @@ else:
 **Note:** The event PATCH endpoint requires `status` to be included in the request body even when you are not changing it. Valid values: `enabled`, `disabled`.
 
 ```bash
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -91,7 +81,7 @@ source .env && curl -s -X PATCH \
 ### Update Event Status
 
 ```bash
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -102,7 +92,7 @@ source .env && curl -s -X PATCH \
 ### Delete an Event
 
 ```bash
-source .env && curl -s -X DELETE \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X DELETE \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/events/api/v2/events/EVENT_UUID"
@@ -115,7 +105,7 @@ source .env && curl -s -X DELETE \
 ### List Speakers
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/events/api/v2/event-speakers?event_uuid=EVENT_UUID" | python3 -c "
@@ -129,7 +119,7 @@ for s in data.get('results', []):
 ### Add a Speaker
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -145,7 +135,7 @@ source .env && curl -s -X POST \
 ### Delete a Speaker
 
 ```bash
-source .env && curl -s -X DELETE \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X DELETE \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/events/api/v2/event-speakers/SPEAKER_ID"
@@ -158,7 +148,7 @@ source .env && curl -s -X DELETE \
 ### List Sponsors
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/events/api/v2/event-sponsors?event_uuid=EVENT_UUID" | python3 -c "
@@ -172,7 +162,7 @@ for s in data.get('results', []):
 ### Add a Sponsor
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -191,7 +181,7 @@ source .env && curl -s -X POST \
 ### List FAQs
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/events/api/v2/event-faqs?event_uuid=EVENT_UUID" | python3 -c "
@@ -207,7 +197,7 @@ for f in data.get('results', []):
 ### Add a FAQ
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \

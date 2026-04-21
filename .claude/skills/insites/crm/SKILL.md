@@ -1,23 +1,10 @@
 ---
 name: insites-crm
-description: Insites CRM module. Use for looking up contacts and companies, searching the CRM, adding/updating records, and logging emails as activities. Trigger on any mention of CRM contacts, companies, client records, or logging emails to the CRM. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-haiku-4-5-20251001
+description: Insites CRM module. Use for looking up contacts and companies, searching the CRM, adding/updating records, and logging emails as activities. Trigger on any mention of CRM contacts, companies, client records, or logging emails to the CRM.
 ---
 
 # Insites: CRM Module
-
-## Overview
-
-The CRM module manages contacts and companies in Insites. Use it to look up, create, update, and archive contact and company records, and to log emails as activities against those records.
-
-## When to Use
-
-- Looking up a contact or company by name or email in the Insites CRM
-- Creating or updating a contact or company record
-- Logging a sent email as an activity on a contact or company record
-- Searching the CRM before responding about a client or prospect
-- Archiving or restoring a contact or company record
 
 The CRM module manages contacts and companies. For tasks and activities, see `.claude/skills/insites/globals/SKILL.md`.
 
@@ -46,7 +33,7 @@ Supported `search_by` fields:
 ### List Contacts
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/contacts?page=1&size=25" | python3 -c "
@@ -64,7 +51,7 @@ for c in data.get('results', []):
 ### Search Contacts
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/contacts?page=1&size=25&search_by=email&keyword=SEARCH+TERM" | python3 -c "
@@ -85,7 +72,7 @@ for c in results:
 ### Get a Single Contact
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/contacts/CONTACT_UUID" | python3 -c "
@@ -105,7 +92,7 @@ print(f\"Notes:     {c.get('notes', '')}\")
 ### Add a Contact
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -128,7 +115,7 @@ print(f\"Created: {c.get('name', '')}  UUID: {c.get('uuid', '')}\")
 **Note:** The contact PATCH endpoint requires `email` to be included in the request body even when you are not changing it. Omitting it causes a GraphQL validation error.
 
 ```bash
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -140,13 +127,13 @@ source .env && curl -s -X PATCH \
 
 ```bash
 # Archive
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/contacts/CONTACT_UUID/archive"
 
 # Restore
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/contacts/CONTACT_UUID/restore"
@@ -159,7 +146,7 @@ source .env && curl -s -X PATCH \
 ### List Companies
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/companies?page=1&size=25" | python3 -c "
@@ -174,7 +161,7 @@ for c in data.get('results', []):
 ### Search Companies
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/companies?page=1&size=25&search_by=company_name&keyword=SEARCH+TERM" | python3 -c "
@@ -193,7 +180,7 @@ for c in results:
 ### Get a Single Company
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/companies/COMPANY_UUID" | python3 -c "
@@ -211,7 +198,7 @@ print(f\"Custom:  {c.get('custom_field', {})}\")
 ### Add a Company
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -230,7 +217,7 @@ print(f\"Created: {c.get('company_name', '')}  UUID: {c.get('uuid', '')}\")
 ### Update a Company
 
 ```bash
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -242,13 +229,13 @@ source .env && curl -s -X PATCH \
 
 ```bash
 # Archive
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/companies/COMPANY_UUID/archive"
 
 # Restore
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/companies/COMPANY_UUID/restore"
@@ -265,7 +252,7 @@ Use this workflow to record a sent email as an activity on a contact or company 
 Search by email to find the contact:
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/crm/api/v2/contacts?page=1&size=25&search_by=email&keyword=SEARCH+TERM" | python3 -c "
@@ -285,7 +272,7 @@ for c in results:
 Log against a **contact** record:
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -315,7 +302,7 @@ else:
 Log against a **company** record instead:
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \

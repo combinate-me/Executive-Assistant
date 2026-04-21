@@ -1,23 +1,11 @@
 ---
 name: web-artifacts-builder
-description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts. v1.0.0
+model: claude-sonnet-4-6
+description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
 license: Complete terms in LICENSE.txt
-metadata:
-  version: 1.0.0
 ---
 
 # Web Artifacts Builder
-
-## Overview
-
-A suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using React, Tailwind CSS, and shadcn/ui. Use for complex artifacts requiring state management, routing, or pre-built component libraries — not for simple single-file HTML or JSX.
-
-## When to Use
-
-- Building a complex, multi-component claude.ai artifact that needs React state management or routing
-- Creating an artifact that uses shadcn/ui components (buttons, dialogs, tables, forms, etc.)
-- Bundling a React + TypeScript app into a single self-contained HTML file for sharing
-- Any artifact too complex for a simple inline JSX or HTML approach
 
 To build powerful frontend claude.ai artifacts, follow these steps:
 1. Initialize the frontend repo using `scripts/init-artifact.sh`

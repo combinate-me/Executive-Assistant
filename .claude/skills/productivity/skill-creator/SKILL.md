@@ -1,23 +1,12 @@
 ---
 name: skill-creator
-description: Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-opus-4-6
+description: Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
 ---
 
 # Skill Creator
 
-## Overview
-
 A skill for creating new skills and iteratively improving them.
-
-## When to Use
-
-- Creating a new skill from scratch based on a workflow or request pattern
-- Editing or improving an existing skill's instructions or structure
-- Running evaluations to test whether a skill works as intended
-- Benchmarking skill performance and comparing iterations with variance analysis
-- Optimising a skill's description frontmatter for better triggering accuracy
 
 At a high level, the process of creating a skill goes like this:
 

@@ -1,8 +1,7 @@
 ---
 name: setup
-description: First-time setup for new Combinate team members installing this assistant. Walks through personal context questions and writes context/me.md and context/current-priorities.md. Run this once when you first install, or any time your role or priorities change. Trigger on "set me up", "run setup", "I'm new", "help me get started", or "my details are wrong". v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-haiku-4-5-20251001
+description: First-time setup for new Combinate team members installing this assistant. Walks through personal context questions and writes context/me.md and context/current-priorities.md. Run this once when you first install, or any time your role or priorities change. Trigger on "set me up", "run setup", "I'm new", "help me get started", or "my details are wrong".
 ---
 
 # Skill: Setup
