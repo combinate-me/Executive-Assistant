@@ -23,7 +23,7 @@ This skill is pre-configured for the following rename:
 
 | | URL |
 |---|---|
-| **Old** | `git@github.com:combinate-me/Combinate-Assistant.git` |
+| **Old** | `git@github.com:combinate-me/Executive-Assistant.git` |
 | **New** | `git@github.com:combinate-me/Executive-Assistant.git` |
 
 If the current remote matches the old URL, the update is applied automatically with no prompts.
@@ -54,7 +54,7 @@ git remote get-url origin
 
 Save the output as `CURRENT_REMOTE_URL`.
 
-- If `CURRENT_REMOTE_URL` is `git@github.com:combinate-me/Combinate-Assistant.git`:
+- If `CURRENT_REMOTE_URL` is `git@github.com:combinate-me/Executive-Assistant.git`:
   - Set `NEW_REMOTE_URL` = `git@github.com:combinate-me/Executive-Assistant.git`
   - Tell the user: "Detected the old remote. Updating to the new repository automatically."
   - Proceed to Step 2.

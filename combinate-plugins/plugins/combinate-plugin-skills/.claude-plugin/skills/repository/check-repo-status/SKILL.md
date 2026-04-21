@@ -135,4 +135,4 @@ COMMIT_LOG (from git log --oneline -5 origin/master)
 - If the repo has diverged, stop and ask the user — do not auto-pull.
 - If the user has unpushed commits only, recommend `/push-to-repo`.
 - Working directory: `/Users/cmb-jim/CMB Projects/Combinate-Assistant`
-- Remote: `origin` → `combinate-me/Combinate-Assistant`
+- Remote: `origin` → `combinate-me/Executive-Assistant`

@@ -128,4 +128,4 @@ COMMIT_LOG (from git log --oneline -5)
 - Never use `--force` or destructive flags
 - Never discard local changes without explicit confirmation from the user
 - Working directory: `/Users/cmb-jim/CMB Projects/Combinate-Assistant`
-- Remote: `origin` → `combinate-me/Combinate-Assistant`
+- Remote: `origin` → `combinate-me/Executive-Assistant`
