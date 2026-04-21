@@ -1,13 +1,10 @@
 ---
 name: teamwork
-description: Teamwork.com integration for Combinate's project management. Use this skill for any interaction with Teamwork - reading tasks, checking project status, viewing comments, creating tasks, and finding who is assigned to what. Trigger on any mention of tasks, deadlines, assignments, project updates, Teamwork, or questions like "what's open on X project", "what is [person] working on", "create a task for X", "what are the comments on task Y", or "what's the status of [project]". This is a daily-use skill. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-haiku-4-5-20251001
+description: Teamwork.com integration for Combinate's project management. Use this skill for any interaction with Teamwork - reading tasks, checking project status, viewing comments, creating tasks, and finding who is assigned to what. Trigger on any mention of tasks, deadlines, assignments, project updates, Teamwork, or questions like "what's open on X project", "what is [person] working on", "create a task for X", "what are the comments on task Y", or "what's the status of [project]". This is a daily-use skill.
 ---
 
 # Skill: Teamwork
-
-## Overview
 
 Use this skill for any interaction with Teamwork.com - reading tasks, reading comments, and creating tasks across projects. This is a daily-use skill that connects Claude to Combinate's project management system.
 
@@ -40,7 +37,7 @@ The `.env` file is gitignored - the API key never gets committed.
 All Teamwork API calls use HTTP Basic Auth where the username is the API key and the password is `x` (literally the letter x).
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   -H "Content-Type: application/json" \
   "$TEAMWORK_SITE/[endpoint]"
@@ -55,7 +52,7 @@ source .env && curl -s \
 Use to find project IDs before making project-specific calls.
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "$TEAMWORK_SITE/projects.json" | python3 -c "
 import sys, json
@@ -72,7 +69,7 @@ for p in data.get('projects', []):
 Replace `PROJECT_ID` with the actual project ID.
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "$TEAMWORK_SITE/projects/PROJECT_ID/tasks.json?pageSize=50&includeCompletedTasks=false" | python3 -c "
 import sys, json
@@ -94,7 +91,7 @@ To include completed tasks, set `includeCompletedTasks=true`.
 Replace `TASK_ID` with the actual task ID.
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "$TEAMWORK_SITE/tasks/TASK_ID.json" | python3 -c "
 import sys, json
@@ -118,7 +115,7 @@ print(t.get('description', '(none)'))
 Replace `TASK_ID` with the actual task ID.
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "$TEAMWORK_SITE/tasks/TASK_ID/comments.json" | python3 -c "
 import sys, json
@@ -144,7 +141,7 @@ Replace `PROJECT_ID` with the target project ID. Tasklist ID is required - use t
 
 **Step 1: Find tasklists in a project**
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "$TEAMWORK_SITE/projects/PROJECT_ID/tasklists.json" | python3 -c "
 import sys, json
@@ -162,7 +159,7 @@ Required: `content` (task title), `todo-list-id`
 Optional: `description`, `due-date` (YYYYMMDD), `responsible-party-id`, `priority` (low/medium/high)
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -u "$TEAMWORK_API_KEY:x" \
   -H "Content-Type: application/json" \
   -d '{
@@ -186,7 +183,7 @@ On success, the response will include the new task ID.
 Use this to look up person IDs for task assignment.
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "$TEAMWORK_SITE/people.json" | python3 -c "
 import sys, json
@@ -203,7 +200,7 @@ for p in data.get('people', []):
 Replace `PERSON_ID` with the person's ID from the people list.
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "$TEAMWORK_SITE/tasks.json?responsible-party-ids=PERSON_ID&pageSize=50" | python3 -c "
 import sys, json
@@ -225,7 +222,7 @@ Every Teamwork project with Insites work has a "Claude" custom item (labelSingul
 **Step 1 — Find the custom item ID:**
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "https://pm.cbo.me/projects/api/v3/projects/PROJECT_ID/customitems.json" | python3 -c "
 import sys, json
@@ -239,7 +236,7 @@ for item in data.get('customItems', []):
 **Step 2 — Read all records:**
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "https://pm.cbo.me/projects/api/v3/customitems/ITEM_ID/records.json" | python3 -c "
 import sys, json
@@ -267,7 +264,7 @@ UAT: https://bcc-uat2.staging.oregon.platform-os.com/
 **API key naming convention:** `COMBINATE_KEY_[CLIENT_TLA]_[PROJECT_TLA]_[ENV]`
 ENV values: `PRD`, `STG`, `UAT`, `DEV`
 
-See `.claude/skills/client-workflows/combinate/SKILL.md` for the full client instance resolution workflow.
+See `.claude/skills/combinate/SKILL.md` for the full client instance resolution workflow.
 
 ---
 

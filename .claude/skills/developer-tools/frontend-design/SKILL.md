@@ -1,24 +1,13 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics. v1.0.0
+model: claude-sonnet-4-6
+description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
 license: Complete terms in LICENSE.txt
-metadata:
-  version: 1.0.0
 ---
-
-## Overview
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
 
 The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
-
-## When to Use
-
-- Building a web component, landing page, dashboard, or full application UI
-- Styling or beautifying an existing web interface
-- Creating HTML/CSS layouts, React components, or other frontend artifacts
-- Designing posters, marketing pages, or any visually rich browser-rendered output
-- Any request to build, style, or redesign a frontend interface
 
 ## Design Thinking
 

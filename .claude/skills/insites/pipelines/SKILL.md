@@ -1,22 +1,12 @@
 ---
 name: insites-pipelines
-description: Insites Pipelines module. Use for managing sales pipelines, pipeline stages, opportunities, and related contacts. Trigger on any mention of pipelines, sales pipeline, opportunities, deals, or pipeline stages in Insites. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-haiku-4-5-20251001
+description: Insites Pipelines module. Use for managing sales pipelines, pipeline stages, opportunities, and related contacts. Trigger on any mention of pipelines, sales pipeline, opportunities, deals, or pipeline stages in Insites.
 ---
 
 # Insites: Pipelines Module
 
-## Overview
-
 The Pipelines module manages sales pipelines, stages within those pipelines, and the opportunities (deals) that move through them.
-
-## When to Use
-
-- Viewing or managing sales pipelines and pipeline stages in Insites
-- Creating, updating, or moving opportunities (deals) between stages
-- Linking CRM contacts to an opportunity as related contacts
-- Any mention of pipelines, sales pipeline, deals, or opportunities in Insites
 
 **Requires:** `INSITES_INSTANCE_URL` and `INSITES_API_KEY`. Use the combinate skill to resolve these for Combinate projects.
 
@@ -31,7 +21,7 @@ The Pipelines module manages sales pipelines, stages within those pipelines, and
 ### List Pipelines
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/pipelines?page=1&size=25" | python3 -c "
@@ -45,7 +35,7 @@ for p in data.get('results', []):
 ### Get a Single Pipeline
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/pipelines/PIPELINE_UUID"
@@ -54,7 +44,7 @@ source .env && curl -s \
 ### Create a Pipeline
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -65,7 +55,7 @@ source .env && curl -s -X POST \
 ### Update a Pipeline
 
 ```bash
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -76,7 +66,7 @@ source .env && curl -s -X PATCH \
 ### Delete a Pipeline
 
 ```bash
-source .env && curl -s -X DELETE \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X DELETE \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/pipelines/PIPELINE_UUID"
@@ -91,7 +81,7 @@ Stages are the columns within a pipeline (e.g. Lead, Qualified, Proposal, Closed
 ### List Stages
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/pipeline-stages?pipeline_uuid=PIPELINE_UUID" | python3 -c "
@@ -105,7 +95,7 @@ for s in data.get('results', []):
 ### Add a Stage
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -119,7 +109,7 @@ source .env && curl -s -X POST \
 ### Update a Stage
 
 ```bash
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -130,7 +120,7 @@ source .env && curl -s -X PATCH \
 ### Delete a Stage
 
 ```bash
-source .env && curl -s -X DELETE \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X DELETE \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/pipeline-stages/STAGE_UUID"
@@ -145,7 +135,7 @@ Opportunities represent individual deals or leads within a pipeline stage.
 ### List Opportunities
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/opportunities?page=1&size=25" | python3 -c "
@@ -163,7 +153,7 @@ for o in data.get('results', []):
 ### Get a Single Opportunity
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/opportunities/OPPORTUNITY_UUID"
@@ -172,7 +162,7 @@ source .env && curl -s \
 ### Create an Opportunity
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -196,7 +186,7 @@ else:
 ### Update an Opportunity (e.g. move to a different stage)
 
 ```bash
-source .env && curl -s -X PATCH \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X PATCH \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -210,7 +200,7 @@ source .env && curl -s -X PATCH \
 ### Delete an Opportunity
 
 ```bash
-source .env && curl -s -X DELETE \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X DELETE \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/opportunities/OPPORTUNITY_UUID"
@@ -225,7 +215,7 @@ Link CRM contacts to an opportunity to track who is involved in the deal.
 ### List Related Contacts
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/opportunity-related-contacts?opportunity_uuid=OPPORTUNITY_UUID" | python3 -c "
@@ -240,7 +230,7 @@ for c in data.get('results', []):
 ### Add a Related Contact
 
 ```bash
-source .env && curl -s -X POST \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X POST \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -254,7 +244,7 @@ source .env && curl -s -X POST \
 ### Remove a Related Contact
 
 ```bash
-source .env && curl -s -X DELETE \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s -X DELETE \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/pipeline/api/v2/opportunity-related-contacts/RELATED_CONTACT_ID"

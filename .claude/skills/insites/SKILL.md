@@ -1,23 +1,12 @@
 ---
 name: insites
-description: Insites platform integration. Use this skill as the entry point for any interaction with an Insites instance. Routes to module-specific sub-skills for CRM, Pipelines, Data, Events, Globals, and CMS development. Trigger on any mention of Insites or when no specific module is referenced. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-haiku-4-5-20251001
+description: Insites platform integration. Use this skill as the entry point for any interaction with an Insites instance. Routes to module-specific sub-skills for CRM, Pipelines, Data, Events, Globals, and CMS development. Trigger on any mention of Insites or when no specific module is referenced.
 ---
 
 # Skill: Insites
 
-## Overview
-
 Insites is a platform for building web applications with integrated business tools. This skill is the entry point. When a specific module is involved, read the relevant sub-skill listed below.
-
-## When to Use
-
-- Any interaction with an Insites instance where no specific module is known yet
-- Setting up authentication and environment variables for an Insites project
-- Routing to the correct module sub-skill (CRM, Pipelines, Data, Events, Globals, CMS)
-- Any mention of "Insites" without a specific module context
-- Resolving the correct API base path for a given Insites module
 
 ---
 
@@ -46,7 +35,7 @@ INSITES_CRM_ADMIN_UUID=your_crm_admin_uuid_here
 All API requests use the `Authorization` header with the API key directly (not Basic Auth):
 
 ```bash
-source .env && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -H "Authorization: $INSITES_API_KEY" \
   -H "Accept: application/json" \
   "$INSITES_INSTANCE_URL/[module]/api/v2/[endpoint]"
@@ -91,4 +80,4 @@ Each Insites module has its own sub-skill. Load the relevant one when working wi
 | 401 Unauthorized | API key wrong or missing | Check `INSITES_API_KEY` in `.env` |
 | 404 Not Found | Wrong path or UUID | Check the URL against the API path reference above |
 | 429 Too Many Requests | Rate limit hit (300 req/60s) | Wait and retry |
-| HTML instead of JSON | `Authorization` header not sent | Ensure `source .env` runs before the curl command |
+| HTML instead of JSON | `Authorization` header not sent | Ensure `source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true` runs before the curl command |

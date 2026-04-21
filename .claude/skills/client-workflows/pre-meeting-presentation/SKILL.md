@@ -1,8 +1,7 @@
 ---
 name: pre-meeting-presentation
-description: Builds a branded HTML presentation for any client meeting before it happens - prospect meetings, existing client meetings, project updates, or any other. Triggers on phrases like "help me prepare for my [client] meeting", "build a presentation for [meeting name]", "create slides for the [client] call", "pre-meeting prep for [client]", "I have a meeting with [client]". Gathers context from Teamwork task, Google Calendar, Gmail, Insites CRM, Drive, and Slack. Outputs a full-screen HTML slideshow (dark brand theme, large fonts, Phosphor icons, Mermaid diagrams) and exports a PDF. Requires Teamwork task ID, meeting name, and client/contact name. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-sonnet-4-6
+description: Builds a branded HTML presentation for any client meeting before it happens - prospect meetings, existing client meetings, project updates, or any other. Triggers on phrases like "help me prepare for my [client] meeting", "build a presentation for [meeting name]", "create slides for the [client] call", "pre-meeting prep for [client]", "I have a meeting with [client]". Gathers context from Teamwork task, Google Calendar, Gmail, Insites CRM, Drive, and Slack. Outputs a full-screen HTML slideshow (dark brand theme, large fonts, Phosphor icons, Mermaid diagrams) and exports a PDF. Requires Teamwork task ID, meeting name, and client/contact name.
 ---
 
 # Skill: Pre-Meeting Presentation
@@ -58,7 +57,7 @@ Ask Shane: **"Is this a prospect (new lead) or an existing client?"**
 
 ### If existing client:
 - Ask: "What is the client TLA and project TLA?" (e.g. `IEC` / `WEB`)
-- Use the Teamwork custom item resolution workflow (see `.claude/skills/client-workflows/combinate/SKILL.md`) to retrieve the `Google Drive` folder URL
+- Use the Teamwork custom item resolution workflow (see `.claude/skills/combinate/SKILL.md`) to retrieve the `Google Drive` folder URL
 - Navigate to that client folder → `Tasks` subfolder
 - Create subfolder: `[TEAMWORK_TASK_ID] - Pre-Meeting Presentation - [Short Description]`
 

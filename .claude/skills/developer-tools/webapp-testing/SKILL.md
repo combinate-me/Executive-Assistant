@@ -1,24 +1,11 @@
 ---
 name: webapp-testing
-description: Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs. v1.0.0
+model: claude-sonnet-4-6
+description: Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.
 license: Complete terms in LICENSE.txt
-metadata:
-  version: 1.0.0
 ---
 
 # Web Application Testing
-
-## Overview
-
-A toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.
-
-## When to Use
-
-- Verifying that a frontend feature or UI flow works as expected in the browser
-- Debugging UI behavior or capturing screenshots of a running web application
-- Testing a local development server before handing off to QA or the client
-- Automating browser interactions for a static HTML file or dynamic web app
-- Capturing browser console logs to diagnose JavaScript errors
 
 To test local web applications, write native Python Playwright scripts.
 

@@ -1,23 +1,12 @@
 ---
 name: combinate
-description: Combinate-specific workflows layered on top of Insites. Use this skill for any client lookup, Google Drive navigation, or cross-system context gathering specific to Combinate's setup. Covers Combinate's custom CRM fields (client TLA, Google Drive URL), finding a client's Drive folder, and pulling context from multiple sources (Insites CRM, Teamwork, Slack, Google Calendar, Google Drive) before responding about a client or project. Trigger whenever a specific client or project is mentioned and context needs to be gathered. v1.0.0
-metadata:
-  version: 1.0.0
+model: claude-sonnet-4-6
+description: Combinate-specific workflows layered on top of Insites. Use this skill for any client lookup, Google Drive navigation, or cross-system context gathering specific to Combinate's setup. Covers Combinate's custom CRM fields (client TLA, Google Drive URL), finding a client's Drive folder, and pulling context from multiple sources (Insites CRM, Teamwork, Slack, Google Calendar, Google Drive) before responding about a client or project. Trigger whenever a specific client or project is mentioned and context needs to be gathered.
 ---
 
 # Skill: Combinate
 
-## Overview
-
 Combinate-specific workflows that layer on top of the generic Insites skills. This skill covers the Combinate configuration of Insites and cross-system client context gathering.
-
-## When to Use
-
-- A specific client or project is mentioned and context needs to be gathered
-- Looking up a client's Google Drive folder via the Teamwork custom item
-- Resolving a client's Insites instance URL and API key
-- Pulling cross-system context from CRM, Teamwork, Slack, Calendar, Drive, and Gmail in parallel
-- Any client lookup, Google Drive navigation, or Combinate-specific workflow
 
 **Combinate Intranet:** Configured via `COMBINATE_INTRANET_URL` + `COMBINATE_INTRANET_KEY` in `.env`. When calling Insites sub-skills for the Combinate intranet, set `INSITES_INSTANCE_URL=$COMBINATE_INTRANET_URL` and `INSITES_API_KEY=$COMBINATE_INTRANET_KEY`.
 
@@ -59,7 +48,7 @@ Every Teamwork project that has Insites work has a "Claude" custom item (labelSi
 **Step 1 — Get the custom item ID for the project:**
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "https://pm.cbo.me/projects/api/v3/projects/PROJECT_ID/customitems.json" | python3 -c "
 import sys, json
@@ -73,7 +62,7 @@ for item in data.get('customItems', []):
 **Step 2 — Read all records:**
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env" && curl -s \
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true && curl -s \
   -u "$TEAMWORK_API_KEY:x" \
   "https://pm.cbo.me/projects/api/v3/customitems/ITEM_ID/records.json" | python3 -c "
 import sys, json
@@ -109,7 +98,7 @@ ENV values: `PRD` (production), `STG` (staging), `UAT` (UAT), `DEV` (development
 Example: `COMBINATE_KEY_BCC_WEB_STG`
 
 ```bash
-source "/Users/shanemcgeorge/Claude/Combinate EA/.env"
+source /Users/combinate-maiks/Combinate-Assistant/.env && [ -f .env ] && source .env; true
 # Then use: INSITES_INSTANCE_URL=<url from record> INSITES_API_KEY=<value of key above>
 ```
 
@@ -139,7 +128,7 @@ When a client or project is mentioned, pull context from all sources in parallel
 
 3. **Google Calendar** - Search for meetings with the client name. Check for recent meeting recordings and notes.
 
-4. **Teamwork** - Find the relevant project and open tasks. Use `.claude/skills/integrations/teamwork/SKILL.md`.
+4. **Teamwork** - Find the relevant project and open tasks. Use `.claude/skills/combinate/teamwork/SKILL.md`.
 
 5. **Slack** - Search for the client name or TLA across channels for internal conversations.
 
