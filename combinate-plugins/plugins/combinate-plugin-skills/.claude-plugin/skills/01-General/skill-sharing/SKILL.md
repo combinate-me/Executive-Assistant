@@ -27,6 +27,19 @@ Handles all GitHub repository tasks in one skill. Read the trigger phrases below
 
 ---
 
+## Step 0 — Slack notification consent
+
+Before detecting intent or running any path, ask:
+
+**"This skill will post a notification to #executive-assistant on Slack when it completes. Is that okay?"**
+
+- If yes — proceed to detect intent
+- If no — proceed without any Slack steps. Skip A6, B6, C7, and D8 entirely for this session
+
+Do not proceed until the user has answered.
+
+---
+
 ## Detect intent
 
 **Follow Path A — Check Repository Status** when the user says:
@@ -282,6 +295,111 @@ If it cannot be determined, ask: **"What is the name of the skill or feature you
 
 Branch name format: `feature/{name}/{skillname}`
 Example: `feature/jim-antonio/check-repo-status`
+
+### C3.5 — Enforce skill structure before committing
+
+Run this step automatically on every push. Do not ask the user — read, fix, and write.
+
+**Step 1 — Confirm folder placement**
+
+The skill folder must be inside a numbered category folder:
+
+```
+.claude-plugin/skills/{XX-Category}/{skill-name}/SKILL.md
+```
+
+| Folder | Category |
+|--------|----------|
+| `01-General` | General-purpose and cross-cutting skills |
+| `02-Sales` | Sales, client context, proposals |
+| `03-Marketing` | Marketing and communications |
+| `04-Management` | Management reporting and operations |
+| `05-Design` | Branding, visual identity, design assets |
+| `06-Development/01-Frontend` | Frontend development |
+| `06-Development/02-Backend` | Backend and API development |
+| `07-QA` | Testing and quality assurance |
+| `08-Support` | Customer support and Zendesk |
+
+If the skill is at the root of `skills/` or in an unrecognised folder, ask: **"Which category does this skill belong to?"** then move the folder before continuing.
+
+**Step 2 — Read the category from the skill's frontmatter**
+
+Open the skill's `SKILL.md` and read the `category` value from the `metadata` block. This is the author's declaration of where the skill belongs.
+
+- If `category` is present and valid — use it as the source of truth
+- If `category` is missing — ask: **"Which category does this skill belong to?"** and wait for the author's answer before continuing
+- If `category` does not match any valid folder — ask the author to correct it
+
+**Step 3 — Ensure the skill folder matches the declared category**
+
+The skill folder must be inside the folder that matches the declared `category`. If the skill is currently in the wrong folder or at the root of `skills/`, move it:
+
+```bash
+# Move the skill folder to the correct category folder
+mv skills/CURRENT_PATH/SKILL_NAME skills/CATEGORY_FOLDER/SKILL_NAME
+```
+
+Tell the user: **"Moved [skill-name] to skills/CATEGORY_FOLDER/ to match the declared category."**
+
+**Step 4 — Rewrite the frontmatter to match the standard format**
+
+The required frontmatter format, matching the skill-sharing skill exactly, is:
+
+```yaml
+---
+name: skill-name
+description: One or two sentence description of what the skill does and when to trigger it.
+metadata:
+  version: 1.0.0
+  category: XX-Category
+---
+```
+
+Rules:
+- Field order must be exactly: `name` → `description` → `metadata`
+- `metadata` always contains `version` then `category`, in that order
+- `category` is taken from what the author declared — never overridden
+- If `version` is missing, default to `1.0.0`
+- If `description` is missing, use whatever is in the skill body's first paragraph, or ask the user
+- Do not add or remove any other fields
+
+If the existing frontmatter already matches this format exactly — skip the write and proceed.
+
+Otherwise, rewrite only the frontmatter block, preserving all content below the closing `---` exactly as-is:
+
+```bash
+# Read the file, rewrite the frontmatter, preserve the body
+python -c "
+import re, sys
+
+path = 'PATH_TO_SKILL_MD'
+with open(path, 'r') as f:
+    content = f.read()
+
+# Extract existing frontmatter values
+fm_match = re.match(r'^---\n(.*?)\n---\n', content, re.DOTALL)
+body = content[fm_match.end():] if fm_match else content
+fm_text = fm_match.group(1) if fm_match else ''
+
+# Parse existing values
+name = re.search(r'^name:\s*(.+)', fm_text, re.MULTILINE)
+desc = re.search(r'^description:\s*(.+)', fm_text, re.MULTILINE)
+ver  = re.search(r'version:\s*(.+)', fm_text)
+
+name_val = name.group(1).strip() if name else 'SKILL_NAME'
+desc_val = desc.group(1).strip() if desc else 'DESCRIPTION'
+ver_val  = ver.group(1).strip() if ver else '1.0.0'
+
+new_fm = f'---\nname: {name_val}\ndescription: {desc_val}\nmetadata:\n  version: {ver_val}\n  category: CATEGORY_VALUE\n---\n'
+
+with open(path, 'w') as f:
+    f.write(new_fm + body)
+
+print('Frontmatter updated.')
+"
+```
+
+Tell the user: **"Frontmatter updated — added `category: CATEGORY_VALUE` to [skill-name]/SKILL.md."**
 
 ### C4 — Create branch and commit
 
