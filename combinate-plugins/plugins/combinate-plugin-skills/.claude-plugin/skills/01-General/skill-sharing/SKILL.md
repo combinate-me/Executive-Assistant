@@ -1,8 +1,9 @@
 ---
 name: skill-sharing
-description: All-in-one GitHub repository skill. Handles checking sync status, pulling the latest changes, and pushing work as a pull request. Trigger on: "do I have the latest", "am I up to date", "check repo status", "pull latest changes", "pull latest skills", "sync with github", "push this to the repository", "push to repo", "create a PR", "create a pull request", "push my changes", or "submit this for review". v1.0.0
+description: All-in-one GitHub repository skill. Handles checking sync status, pulling the latest changes, pushing work as a pull request, and updating the remote URL after a repository rename. Trigger on: "do I have the latest", "am I up to date", "check repo status", "pull latest changes", "pull latest skills", "sync with github", "push this to the repository", "push to repo", "create a PR", "create a pull request", "push my changes", "submit this for review", "the repository was renamed", "update the remote URL", "repo was renamed", "the GitHub repo has a new name", or "update remote after rename". v1.1.0
 metadata:
-  version: 1.0.0
+  version: 1.1.0
+  category: 01-General
 ---
 
 # Skill: Sync and Push
@@ -41,7 +42,11 @@ Handles all GitHub repository tasks in one skill. Read the trigger phrases below
 - "push this to the repository" / "push to repo" / "push my changes"
 - "create a PR" / "create a pull request" / "submit this for review"
 
-If the request is ambiguous, ask: **"Do you want to check your status, pull the latest, or push your changes?"**
+**Follow Path D — Rename Remote** when the user says:
+- "the repository was renamed" / "repo was renamed" / "remote repo was renamed"
+- "update the remote URL" / "the GitHub repo has a new name" / "update remote after rename"
+
+If the request is ambiguous, ask: **"Do you want to check your status, pull the latest, push your changes, or update the remote URL?"**
 
 ---
 
@@ -232,6 +237,8 @@ COMMIT_LOG
 
 Creates a feature branch, commits changes, pushes to GitHub, opens a PR, and notifies the team.
 
+**Rule: A PR to master must always be created after every successful push. This step is not optional and must not be skipped under any circumstance.**
+
 ### C1 — Check and configure .env
 
 Check that `.env` exists and `GITHUB_TOKEN` is set:
@@ -292,7 +299,9 @@ If there is nothing to commit, tell the user and stop.
 source .env && git push origin BRANCH_NAME
 ```
 
-### C6 — Create the pull request
+If the push succeeds, always proceed to C6. Do not stop or ask the user. Pushing a branch without opening a PR is not a valid end state.
+
+### C6 — Create the pull request (always runs after C5)
 
 ```bash
 source .env && curl -s -X POST \
@@ -354,6 +363,153 @@ else:
 - **Nothing to commit** — Warn and stop. Do not push an empty branch.
 - **PR already exists** — Surface the existing PR URL instead of creating a duplicate.
 - **Slack error** — Complete the git/PR steps anyway. Tell the user: "PR created but Slack notification failed — please notify Jim manually."
+
+---
+
+---
+
+## Path D — Rename Remote
+
+Updates the local git remote URL after a repository has been renamed on GitHub. Stashes local changes first, updates the remote, pulls the latest, and restores changes.
+
+### Known Rename
+
+| | URL |
+|---|---|
+| **Old** | `git@github.com:combinate-me/Combinate-Assistant.git` |
+| **New** | `git@github.com:combinate-me/Executive-Assistant.git` |
+
+If the current remote matches the old URL, the update is applied automatically with no prompts.
+
+### D0 — Ask for the user's name
+
+Ask: **"What is your name?"**
+
+Save the response as `USER_NAME`. This will be included in the Slack notification.
+
+### D1 — Check the current remote URL
+
+```bash
+git remote get-url origin
+```
+
+Save the output as `CURRENT_REMOTE_URL`.
+
+- If `CURRENT_REMOTE_URL` is `git@github.com:combinate-me/Combinate-Assistant.git`:
+  - Set `NEW_REMOTE_URL` = `git@github.com:combinate-me/Executive-Assistant.git`
+  - Tell the user: "Detected the old remote. Updating to the new repository automatically."
+  - Proceed to D2.
+- If `CURRENT_REMOTE_URL` is already `git@github.com:combinate-me/Executive-Assistant.git`:
+  - Tell the user: "Your remote is already pointing to the new repository. Nothing to update."
+  - Stop.
+- If `CURRENT_REMOTE_URL` is something else:
+  - Ask: **"The current remote is `CURRENT_REMOTE_URL`. What should it be updated to?"**
+  - Save the response as `NEW_REMOTE_URL` and proceed to D2.
+
+### D2 — Stash all local changes
+
+Always run this regardless of whether there appear to be local changes:
+
+```bash
+git stash push --include-untracked -m "local changes before remote rename"
+```
+
+If the output is `No local changes to save`, note this and continue. If a stash was created, note it so it can be restored in D6.
+
+### D3 — Update the remote URL
+
+```bash
+git remote set-url origin NEW_REMOTE_URL
+```
+
+Verify the change:
+
+```bash
+git remote -v
+```
+
+If the new URL is not shown correctly, stop and tell the user: "The remote URL could not be updated. Check that the URL is valid and try again."
+
+### D4 — Fetch from the new remote
+
+```bash
+git fetch origin
+```
+
+If this fails with an authentication error or "repository not found", stop and tell the user:
+
+> "Could not connect to the new remote. Please check the URL is correct, you have access to the repository, and your credentials are up to date."
+
+### D5 — Merge the latest changes
+
+```bash
+git merge origin/master
+```
+
+If the result is "Already up to date", note this and continue. If there are merge conflicts, list the conflicting files and stop. Do not auto-resolve.
+
+### D6 — Restore stashed changes (if applicable)
+
+If a stash was created in D2, run:
+
+```bash
+git stash pop
+```
+
+If stash pop results in conflicts, list them and stop. Do not auto-resolve. Skip this step if no stash was made.
+
+### D7 — Confirm what was pulled
+
+```bash
+git log --oneline -5
+git config user.name
+```
+
+Note the current branch, recent commits, and git user name for the Slack notification.
+
+### D8 — Send Slack notification
+
+Post to `#executive-assistant` (`C0ARB20T3DM`) using `SLACK_BOT_TOKEN`:
+
+**On success:**
+```
+<@UE0U3PBGT> *Remote repository renamed and synced*
+
+*Updated by:* USER_NAME
+*Branch:* `BRANCH_NAME`
+*Old remote:* CURRENT_REMOTE_URL
+*New remote:* NEW_REMOTE_URL
+*Latest commits:*
+COMMIT_LOG
+```
+
+**On failure:**
+```
+<@UE0U3PBGT> *Remote rename failed*
+
+*Updated by:* USER_NAME
+*Branch:* `BRANCH_NAME`
+*Attempted URL:* NEW_REMOTE_URL
+*Error:* ERROR_DETAILS
+```
+
+### D9 — Confirm to the user
+
+> Remote updated successfully.
+>
+> - Old remote: `CURRENT_REMOTE_URL`
+> - New remote: `NEW_REMOTE_URL`
+> - Latest changes pulled from the new remote
+> - Your local changes have been restored (if any were stashed)
+> - Notification posted to #executive-assistant
+
+## Error Handling (Path D)
+
+- **Remote already up to date** — Tell the user and stop. Nothing to do.
+- **Fetch fails (auth error)** — Stop and tell the user to check credentials or access rights.
+- **Merge conflicts** — List the conflicting files and stop. Never auto-resolve.
+- **Stash pop conflicts** — List the conflicting files and stop. Tell the user to resolve manually.
+- **Slack error** — Complete the git steps anyway and tell the user: "Remote updated but Slack notification failed — please notify Jim manually."
 
 ---
 

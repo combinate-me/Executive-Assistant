@@ -49,7 +49,7 @@ Skills are built organically. When you notice a recurring request, suggest turni
 Used every day. Load proactively when the trigger phrase appears.
 
 - **daily-task-brief** - What's on my plate today: pulls tasks from Teamwork, calendar events, and unread Slack. Skill: `.claude/skills/daily-operations/daily-task-brief/SKILL.md`
-- **eod-report** - End of day summary: completed tasks, open items, blockers. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/daily-operations/eod-report/SKILL.md`
+- **eod-report** - End of day summary: completed tasks, open items, blockers. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/01-General/eod-report/SKILL.md`
 
 ### Client Workflows
 
@@ -57,7 +57,7 @@ Multi-step workflows anchored to a Teamwork task and a client.
 
 - **combinate** - Gather full client context from CRM, Teamwork, Calendar, Drive, Slack, Gmail in parallel. Skill: `.claude/skills/client-workflows/combinate/SKILL.md`
 - **pre-meeting-presentation** - Build a branded HTML presentation before any client or prospect meeting. Skill: `.claude/skills/client-workflows/pre-meeting-presentation/SKILL.md`
-- **post-meeting-followup** - Create follow-up docs, spreadsheets, and client emails after meetings. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/client-workflows/post-meeting-followup/SKILL.md`
+- **post-meeting-followup** - Create follow-up docs, spreadsheets, and client emails after meetings. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/02-Sales/post-meeting-followup/SKILL.md`
 - **create-user-guide** - Create or extend client-facing User Guide Google Docs for delivered projects. Skill: `.claude/skills/client-workflows/create-user-guide/SKILL.md`
 
 ### Integrations
@@ -93,11 +93,7 @@ Technical skills for building, testing, and designing.
 
 Git and GitHub management for the assistant codebase.
 
-- **skill-sharing** - All-in-one: check status, pull latest, or push changes as a PR. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/repository/skill-sharing/SKILL.md`
-- **push-to-repo** - Push skill changes to GitHub as a pull request. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/repository/push-to-repo/SKILL.md`
-- **pull-from-repo** - Pull and merge latest master from GitHub. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/repository/pull-from-repo/SKILL.md`
-- **check-repo-status** - Check whether local is behind, ahead, or in sync with remote. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/repository/check-repo-status/SKILL.md`
-- **rename-remote** - Update remote URL after a repo rename on GitHub. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/repository/rename-remote/SKILL.md`
+- **skill-sharing** - All-in-one: check status, pull latest, push changes as a PR, or update remote URL after a rename. Skill: `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/01-General/skill-sharing/SKILL.md`
 
 ### Productivity
 
@@ -157,7 +153,7 @@ All Google Docs created for client work must use the **Combinate branded templat
 - **Template ID:** `12TovrIc6MuTjl0dvRycqR56HWssYISNvdnrI_4CwW8U`
 - Use `createDocumentFromTemplate` - never `createDocument` for client-facing docs
 - Replace `"Document Title"` and `"Document Subtitle"` placeholders in the cover
-- See `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/client-workflows/post-meeting-followup/SKILL.md` for the full document creation workflow including how to clear sample content and apply heading styles
+- See `combinate-plugins/plugins/combinate-plugin-skills/.claude-plugin/skills/02-Sales/post-meeting-followup/SKILL.md` for the full document creation workflow including how to clear sample content and apply heading styles
 
 ## Google Drive File Structure
 
